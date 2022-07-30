@@ -33,7 +33,7 @@ const Login = () => {
             </label>
           </div>
 
-          <button className="w-full bg-iblue rounded-lg py-2 my-2 text-white">Sign In</button>
+          <Link to="/quiz" className="w-full text-center bg-iblue rounded-lg py-2 my-2 text-white">Sign In</Link>
           <div className="w-full flex justify-center items-center my-2">
             <div className="w-[60px] h-[1px] bg-iblue"></div>
           </div>
