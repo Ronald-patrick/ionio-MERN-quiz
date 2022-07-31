@@ -14,6 +14,12 @@ const Login = () => {
   const authUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if(email.length == 0 || pass.length == 0)
+    {
+      alert("Fields are empty")
+      return;
+    }
+
     const res = await axios.post(`https://quizapp-backend.vercel.app/auth/login`, {
       email: email,
       password: pass,

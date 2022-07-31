@@ -20,6 +20,14 @@ const Register = () => {
       return;
     }
 
+    if(pass.length < 6)
+    {
+      alert("Password too short, Minimum 6 characters required");
+      return;
+    }
+
+
+
     const res = await axios.post(`https://quizapp-backend.vercel.app/auth/register`, {
       name : name,
       email: email,
