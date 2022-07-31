@@ -38,6 +38,8 @@ const Register = () => {
 
     console.log(data);
 
+    alert("Registeration Success")
+
     navigate("/login");
   }
 
