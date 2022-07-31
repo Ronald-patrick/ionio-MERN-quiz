@@ -1,6 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [cpass, setCpass] = useState("")
+
+  const registerUser = async ()=>{
+    if(cpass !== pass)
+    {
+      alert("passwords dont match");
+      return;
+    }
+    if(name.length === 0 || pass.length === 0)
+    {
+      alert("Fields are empty");
+      return;
+    }
+
+    const res = await axios.post(`http://localhost:5000/auth/register`, {
+      name : name,
+      email: email,
+      password: pass,
+    });
+
+    const { data } = await res;
+
+    console.log(data);
+
+    navigate("/login");
+  }
+
   return (
     <div className="flex justify-center items-center mt-[70px]">
       <div className="flex justify-center items-center bg-white p-2 pt-6 w-[60%] shadow-md">
@@ -10,22 +42,30 @@ const Register = () => {
 
           <div className="my-2 w-full">
             <h2 className="text-sm">Your name</h2>
-            <input type="text" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="Ronald Patrick" />
+            <input value={name} onChange={(e)=>{
+              setName(e.target.value);
+            }} type="text" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="Ronald Patrick" />
           </div>
 
           <div className="my-2 w-full">
             <h2 className="text-sm">Your email</h2>
-            <input type="text" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="name@example.com" />
+            <input value={email} onChange={(e)=>{
+              setEmail(e.target.value);
+            }} type="email" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="name@example.com" />
           </div>
 
           <div className="my-2 w-full">
             <h2 className="text-sm">Password</h2>
-            <input type="password" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="*********" />
+            <input value={pass} onChange={(e)=>{
+              setPass(e.target.value);
+            }} type="password" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="*********" />
           </div>
 
           <div className="my-2 w-full">
             <h2 className="text-sm">Confirm Password</h2>
-            <input type="password" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="*********" />
+            <input value={cpass} onChange={(e)=>{
+              setCpass (e.target.value);
+            }} type="password" className="bg-[#F9FAFB] px-4 py-2 text-sm rounded-xl w-full" placeholder="*********" />
           </div>
 
           <div className="form-check my-2">
@@ -42,7 +82,7 @@ const Register = () => {
               I accept the <span className="text-iblue">Terms and Conditions</span> 
             </label>
           </div>
-          <Link to="/login" className="w-full text-center bg-iblue rounded-lg py-2 my-2 text-white">Create Account</Link>
+          <button onClick={registerUser} className="w-full text-center bg-iblue rounded-lg py-2 my-2 text-white">Create Account</button>
         </div>
       </div>
     </div>

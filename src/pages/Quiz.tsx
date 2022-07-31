@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { ArrowSmRightIcon, ArrowSmLeftIcon } from "@heroicons/react/outline";
+import { logoutUser } from "../redux/reducer";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Ops {
   id: number;
@@ -17,12 +21,15 @@ interface Props {
   total: number;
   next: (resp: number) => void;
   prev: () => void;
-  res: Array<number>;
 }
 
 const Quiz = (props: Props) => {
-  const [op, setOp] = useState(props.res[props.no]);
+  const statex : any=  useSelector((state) => state);
+  const dispatch = useDispatch();
+  const [op, setOp] = useState(statex.res[props.no]);
   console.log(op);
+  const location = useLocation();
+  const navigate = useNavigate();
   
   const data = props.data;
 
@@ -47,14 +54,17 @@ const Quiz = (props: Props) => {
         ))}
 
         <div className="flex justify-between items-center px-4 w-full mt-10">
-          <button className="text-iblue font-bold">Logout</button>
+          <button onClick={()=>{
+              dispatch(logoutUser());
+              navigate('/',{replace:true});
+          }} className="text-iblue font-bold">Logout</button>
           <div className="flex justify-center items-center mb-4">
             <button
               className=" flex py-2 px-8 border-2 rounded-xl text-md font-bold mr-6"
               onClick={()=>{
                 props.prev();
                 if(props.no !== 0)
-                setOp(props.res[props.no-1]);
+                setOp(statex.res[props.no-1]);
               }}
             >
               <ArrowSmLeftIcon className="w-6 h-6 mr-2" />
@@ -65,13 +75,14 @@ const Quiz = (props: Props) => {
               onClick={() =>{
                 props.next(op);
                 if(props.no < props.total)
-                setOp(props.res[props.no+1]);
+                setOp(statex.res[props.no+1]);
                 else
                 setOp(-1);
               }}
             >
               <ArrowSmRightIcon className="w-6 h-6 mr-2" />
               {props.no + 1 === props.total ? "Finish" : "Next"}
+              
             </button>
           </div>
         </div>
