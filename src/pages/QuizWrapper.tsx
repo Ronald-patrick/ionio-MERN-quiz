@@ -5,7 +5,7 @@ import { useSelector,useDispatch } from "react-redux";
 import Quiz from "./Quiz";
 import axios from "axios";
 import { resetResult, setResult } from "../redux/reducer";
-
+// 20FPBFPhoAnlr3qN
 const QuizWrapper = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const QuizWrapper = () => {
       
       let score : Number = checkResults(copyarr);
 
-      const resp = await axios.post(`http://localhost:5000/submitScore`, {
+      const resp = await axios.post(`https://quizapp-backend.vercel.app/submitScore`, {
         email: statex.user.email,
         name: statex.user.name,
         score : score

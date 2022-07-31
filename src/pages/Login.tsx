@@ -14,7 +14,7 @@ const Login = () => {
   const authUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await axios.post(`http://localhost:5000/auth/login`, {
+    const res = await axios.post(`https://quizapp-backend.vercel.app/auth/login`, {
       email: email,
       password: pass,
     });

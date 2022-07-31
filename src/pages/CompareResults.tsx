@@ -12,7 +12,7 @@ const CompareResults = () => {
   const [data, setData] = useState<Data[]>([])
 
   const getData = async ()=>{
-    const res = await axios('http://localhost:5000/getScores');
+    const res = await axios('https://quizapp-backend.vercel.app/getScores');
     const { data } = await res;
 
     console.log(data);

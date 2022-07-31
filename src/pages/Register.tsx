@@ -20,7 +20,7 @@ const Register = () => {
       return;
     }
 
-    const res = await axios.post(`http://localhost:5000/auth/register`, {
+    const res = await axios.post(`https://quizapp-backend.vercel.app/auth/register`, {
       name : name,
       email: email,
       password: pass,
